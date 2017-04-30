@@ -1,15 +1,14 @@
-// Package errortree provides primitives for working with errors in a structured
-// way.
+// Package errortree provides primitives for working with errors in tree structure
 //
-// errortree is intended to be used in places where Errors are generated
+// errortree is intended to be used in places where errors are generated
 // from an arbitrary tree structure, like the validation of a configuration
 // file.
 // This allows adding additional context as to why an error has happened
 // in a clean and structured way.
 //
-// errortree fully supports nesting of multiple error maps, including simplified
-// retrieval of Errors which, among other things, should help building clean
-// unit tests.
+// errortree fully supports nesting of multiple trees, including simplified
+// retrieval of errors which, among other things, should help remove repeated boilerplate code
+// from unit tests.
 package errortree
 
 import (
