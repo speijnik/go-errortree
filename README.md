@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/speijnik/go-errortree/branch/master/graph/badge.svg)](https://codecov.io/gh/speijnik/go-errortree)
 [![Go Report Card](https://goreportcard.com/badge/github.com/speijnik/go-errortree)](https://goreportcard.com/report/github.com/speijnik/go-errortree)
 
-Package `github.com/speijnik/go-errortree` provides functionality for working
+`github.com/speijnik/go-errortree` provides functionality for working
 with errors structured as a tree.
 
 Structuring errors in such a way may be desired when, for example, validating
