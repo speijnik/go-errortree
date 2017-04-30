@@ -11,6 +11,6 @@ with errors structured as a tree.
 Structuring errors in such a way may be desired when, for example, validating
 structured input such as a configuration file with multiple sections.
 
-A corresponding example can be found in [example_config_validation_test.go](example_config_validation_test.go) file.
+A corresponding example can be found in the [example_config_validation_test.go](example_config_validation_test.go) file.
 
 The code is released under the terms of the MIT license.
