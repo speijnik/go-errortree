@@ -50,7 +50,7 @@ func ExampleAdd_duplicate() {
 		}
 	}()
 
-	err = errortree.Add(err, "test", errors.New("key re-used"))
+	errortree.Add(err, "test", errors.New("key re-used"))
 	// Output: Cannot add error: key test exists.
 }
 
