@@ -67,6 +67,45 @@ func TestFlatten(t *testing.T) {
 	require.NotNil(t, flattened)
 	require.Len(t, flattened, 6)
 	require.EqualValues(t, expected, flattened)
+
+	// Simple recursion (single level)
+	tree = &Tree{
+		Delimiter: ".",
+		Errors: map[string]error{
+			"a": errors.New("test0"),
+		},
+	}
+	tree.Errors["b"] = tree
+	expected = map[string]error{
+		"a": errors.New("test0"),
+	}
+
+	flattened = Flatten(tree)
+	require.NotNil(t, flattened)
+	require.Len(t, flattened, 1)
+	require.EqualValues(t, expected, flattened)
+
+	// Multi-level recursion
+	tree = &Tree{
+		Delimiter: ".",
+		Errors: map[string]error{
+			"a": errors.New("test0"),
+		},
+	}
+	childTree := &Tree{
+		Delimiter: ".",
+		Errors:    make(map[string]error, 1),
+	}
+	childTree.Errors["c"] = tree
+	tree.Errors["b"] = childTree
+	expected = map[string]error{
+		"a": errors.New("test0"),
+	}
+
+	flattened = Flatten(tree)
+	require.NotNil(t, flattened)
+	require.Len(t, flattened, 1)
+	require.EqualValues(t, expected, flattened)
 }
 
 func TestGet(t *testing.T) {
