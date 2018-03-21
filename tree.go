@@ -45,7 +45,7 @@ func (t *Tree) Error() string {
 	}
 	formatter := t.getFormatter()
 
-	return formatter(flatten(t, t.getDelimiter()))
+	return formatter(flatten(t, t.getDelimiter(), nil))
 }
 
 // ErrorOrNil returns nil if the tree is empty or the tree itself

@@ -34,7 +34,7 @@ func Keys(err error) []string {
 		return nil
 	}
 
-	flattened := flatten(tree, tree.getDelimiter())
+	flattened := flatten(tree, tree.getDelimiter(), nil)
 	keys := make([]string, 0, len(flattened))
 	for key := range flattened {
 		keys = append(keys, key)
@@ -163,17 +163,24 @@ func Flatten(err error) map[string]error {
 		return nil
 	}
 
-	return flatten(tree, tree.getDelimiter())
+	return flatten(tree, tree.getDelimiter(), nil)
 }
 
-func flatten(tree *Tree, delimiter string, keyPrefix ...string) map[string]error {
+func flatten(tree *Tree, delimiter string, visited []*Tree, keyPrefix ...string) map[string]error {
+	for _, visitedTree := range visited {
+		if tree == visitedTree {
+			return map[string]error{}
+		}
+	}
+	visited = append(visited, tree)
+
 	errors := tree.getErrors()
 	errorMap := make(map[string]error, len(errors))
 
 	for key, err := range errors {
 		if childTree, isTree := GetTree(err); isTree {
 			childPrefix := append(keyPrefix, key)
-			for childKey, childErr := range flatten(childTree, delimiter, childPrefix...) {
+			for childKey, childErr := range flatten(childTree, delimiter, visited, childPrefix...) {
 				errorMap[key+delimiter+childKey] = childErr
 			}
 		} else {
